@@ -18,12 +18,19 @@ public class ParticipantService {
     }
 
     //register participant
-    public ParticipantEntity registerParticipant(Participant participant) {
+    public Participant registerParticipant(Participant participant) {
         participantRepository.findByEmail(participant.getEmail())
                 .ifPresent( p -> {
                     throw new EntityExistsException("Participant with email " + participant.getEmail() + " already exists");
                         });
         ParticipantEntity participantEntity = ParticipantMapper.toEntity(participant);
-        return participantRepository.save(participantEntity);
+        ParticipantEntity saved = participantRepository.save(participantEntity);
+        return ParticipantMapper.toParticipantDto(saved);
+    }
+
+    public Participant getParticipantById(Long id) {
+        ParticipantEntity entity = participantRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Participant with id " + id + " not found!"));
+        return ParticipantMapper.toParticipantDto(entity);
     }
 }

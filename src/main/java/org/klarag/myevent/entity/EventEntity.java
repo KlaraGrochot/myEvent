@@ -17,7 +17,7 @@ public class EventEntity {
     private LocalDate date;
     private Long capacity;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private LocationEntity location;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
