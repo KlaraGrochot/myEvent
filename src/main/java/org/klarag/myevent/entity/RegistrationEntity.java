@@ -5,20 +5,29 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class Registration {
+public class RegistrationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "event_id")
-    private Event event;
+    @JoinColumn(name = "event")
+    private EventEntity event;
 
     @ManyToOne
     @JoinColumn(name = "participant_id")
-    private Participant participant;
+    private ParticipantEntity participant;
 
     private LocalDate registrationDate;
+
+    public RegistrationEntity() {}
+
+    public RegistrationEntity(Long id, EventEntity event, ParticipantEntity participant, LocalDate registrationDate) {
+        this.id = id;
+        this.event = event;
+        this.participant = participant;
+        this.registrationDate = registrationDate;
+    }
 
     public Long getId() {
         return id;
@@ -28,19 +37,19 @@ public class Registration {
         this.id = id;
     }
 
-    public Event getEvent() {
+    public EventEntity getEvent() {
         return event;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setEvent(EventEntity eventEntity) {
+        this.event = eventEntity;
     }
 
-    public Participant getParticipant() {
+    public ParticipantEntity getParticipant() {
         return participant;
     }
 
-    public void setParticipant(Participant participant) {
+    public void setParticipant(ParticipantEntity participant) {
         this.participant = participant;
     }
 

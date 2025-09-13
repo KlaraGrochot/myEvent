@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Participant {
+public class ParticipantEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,7 +15,15 @@ public class Participant {
     private String email;
 
     @OneToMany(mappedBy = "participant", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Registration> registrations = new HashSet<>();
+    private Set<RegistrationEntity> registrations = new HashSet<>();
+
+    public ParticipantEntity() {}
+
+    public ParticipantEntity(Long id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
 
     public Long getId() {
         return id;

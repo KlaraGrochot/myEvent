@@ -26,30 +26,30 @@ public class RepositoryTest {
     @Test
     void testDatabase() {
         // Create a location
-        Location loc = new Location();
+        LocationEntity loc = new LocationEntity();
         loc.setName("Test Hall");
         loc.setCity("Test City");
         loc.setAddress("Test Address");
         locationRepo.save(loc);
 
         // Create an event
-        Event event = new Event();
-        event.setName("Test Event");
-        event.setDescription("Description here");
-        event.setDate(LocalDate.now());
-        event.setCapacity(100L);
-        event.setLocation(loc);
-        eventRepo.save(event);
+        EventEntity eventEntity = new EventEntity();
+        eventEntity.setName("Test Event");
+        eventEntity.setDescription("Description here");
+        eventEntity.setDate(LocalDate.now());
+        eventEntity.setCapacity(100L);
+        eventEntity.setLocation(loc);
+        eventRepo.save(eventEntity);
 
         // Create a participant
-        Participant participant = new Participant();
+        ParticipantEntity participant = new ParticipantEntity();
         participant.setName("John Doe");
         participant.setEmail("john@example.com");
         participantRepo.save(participant);
 
         // Register participant
-        Registration reg = new Registration();
-        reg.setEvent(event);
+        RegistrationEntity reg = new RegistrationEntity();
+        reg.setEvent(eventEntity);
         reg.setParticipant(participant);
         reg.setRegistrationDate(LocalDate.now());
         registrationRepo.save(reg);

@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Event {
+public class EventEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,10 +18,21 @@ public class Event {
     private Long capacity;
 
     @ManyToOne
-    private Location location;
+    private LocationEntity location;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Registration> registrations = new HashSet<>();
+    private Set<RegistrationEntity> registrations = new HashSet<>();
+
+    public EventEntity() {}
+
+    public EventEntity(Long id, String name, String description, LocalDate date, Long capacity, LocationEntity location) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.date = date;
+        this.capacity = capacity;
+        this.location = location;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -63,11 +74,11 @@ public class Event {
         this.capacity = capacity;
     }
 
-    public Location getLocation() {
+    public LocationEntity getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(LocationEntity location) {
         this.location = location;
     }
 }
