@@ -1,8 +1,16 @@
 package org.klarag.myevent.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public class Participant {
     private Long id;
+
+    @NotBlank(message = "To pole jest wymagane")
     private String name;
+
+    @NotBlank(message = "To pole jest wymagane")
+    @Email(message = "Podaj poprawny adres e-mail")
     private String email;
 
     public Participant() {}
