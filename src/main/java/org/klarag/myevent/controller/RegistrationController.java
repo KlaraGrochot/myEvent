@@ -1,5 +1,7 @@
 package org.klarag.myevent.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.klarag.myevent.mapper.EventMapper;
 import org.klarag.myevent.mapper.ParticipantMapper;
 import org.klarag.myevent.service.EventService;
@@ -27,6 +29,12 @@ public class RegistrationController {
         this.participantService = participantService;
     }
 
+    @Operation(
+            summary = "Register participant for an event",
+            description = "Registers a participant to an event using their IDs"
+    )
+    @ApiResponse(responseCode = "200", description = "Participant successfully registered")
+    @ApiResponse(responseCode = "400", description = "Event full, participant already registered, or invalid IDs")
     @PostMapping("/{eventId}/register/{participantId}")
     public ResponseEntity<?> registerParticipant(@PathVariable Long eventId, @PathVariable Long participantId) {
         try {

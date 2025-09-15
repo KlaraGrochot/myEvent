@@ -30,7 +30,7 @@ public class RepositoryTest {
         loc.setName("Test Hall");
         loc.setCity("Test City");
         loc.setAddress("Test Address");
-        locationRepo.save(loc);
+        loc = locationRepo.save(loc);
 
         // Create an event
         EventEntity eventEntity = new EventEntity();
