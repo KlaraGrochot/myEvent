@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create New Event</title>
+</head>
+<body>
+<h1>Create New Event</h1>
+<a th:href="@{/events}">Back to Events</a>
+
+<form th:action="@{/api/events}" th:object="${event}" method="post">
+    <label>Name: <input type="text" th:field="*{name}" /></label><br/>
+    <label>Description: <input type="text" th:field="*{description}" /></label><br/>
+    <label>Date: <input type="date" th:field="*{date}" /></label><br/>
+    <label>Capacity: <input type="number" th:field="*{capacity}" /></label><br/>
+    <!-- Optional: location selection -->
+    <button type="submit">Create Event</button>
+</form>
+</body>
+</html>

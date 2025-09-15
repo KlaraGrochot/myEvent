@@ -81,4 +81,8 @@ public class EventEntity {
     public void setLocation(LocationEntity location) {
         this.location = location;
     }
+
+    public Set<RegistrationEntity> getRegistrations() {
+        return registrations;
+    }
 }

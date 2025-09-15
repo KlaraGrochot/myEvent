@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Events</title>
+</head>
+<body>
+<a th:href="@{/}">Home</a>
+<h1>All Events</h1>
+<a href="/events/new">Add New Event</a>
+<ul>
+    <li th:each="event : ${events}">
+        <a th:href="@{/events/{id}(id=${event.id})}" th:text="${event.name}"></a>
+    </li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${event.name}">Event Details</title>
+</head>
+<body>
+<h1 th:text="${event.name}">Event Name</h1>
+<p th:text="'Description: ' + ${event.description}">Description</p>
+<p th:text="'Date: ' + ${event.date}">Date</p>
+<p th:text="'Capacity: ' + ${event.capacity}">Capacity</p>
+
+<!-- Sign Up Button -->
+<form th:action="@{/api/events/{eventId}/register/{participantId}(eventId=${event.id}, participantId=1)}" method="post">
+    <button type="submit">Sign Up</button>
+</form>
+
+<a th:href="@{/events}">Back to Events</a>
+<a th:href="@{/events/{id}/registrations(id=${event.id})}">View Registrations</a>
+</body>
+</html>
