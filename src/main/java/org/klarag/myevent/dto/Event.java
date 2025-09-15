@@ -1,15 +1,26 @@
 package org.klarag.myevent.dto;
 
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import org.klarag.myevent.entity.LocationEntity;
 
 import java.time.LocalDate;
 
 public class Event {
     private Long id;
+
+    @NotBlank(message = "To pole jest wymagane")
     private String name;
+
     private String description;
+
+    @Future(message = "Ale to już było")
     private LocalDate date;
+
+    @Min(value = 1, message = "Podaj poprawny limit uczestników")
     private Long capacity;
+
     private LocationEntity location;
 
     //constructors

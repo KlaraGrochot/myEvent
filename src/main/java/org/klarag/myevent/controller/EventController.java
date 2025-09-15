@@ -1,5 +1,6 @@
 package org.klarag.myevent.controller;
 
+import jakarta.validation.Valid;
 import org.klarag.myevent.dto.Event;
 import org.klarag.myevent.service.EventService;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class EventController {
     }
 
     @PostMapping
-    public ResponseEntity<Event> createEvent(@RequestBody Event newEvent) {
+    public ResponseEntity<Event> createEvent(@Valid @RequestBody Event newEvent) {
         Event created = eventService.addEvent(newEvent);
         return ResponseEntity.ok(created);
     }

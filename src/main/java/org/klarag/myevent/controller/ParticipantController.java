@@ -1,5 +1,6 @@
 package org.klarag.myevent.controller;
 
+import jakarta.validation.Valid;
 import org.klarag.myevent.dto.Participant;
 import org.klarag.myevent.service.ParticipantService;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class ParticipantController {
     }
 
     @PostMapping
-    public ResponseEntity<Participant> addParticipant(@RequestBody Participant newParticipant) {
+    public ResponseEntity<Participant> addParticipant(@Valid @RequestBody Participant newParticipant) {
         Participant created = participantService.registerParticipant(newParticipant);
         return ResponseEntity.ok(created);
     }
