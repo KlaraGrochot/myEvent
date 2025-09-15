@@ -1,11 +1,17 @@
 package org.klarag.myevent.service;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.klarag.myevent.dto.Event;
+import org.klarag.myevent.dto.Participant;
 import org.klarag.myevent.entity.EventEntity;
 import org.klarag.myevent.exception.EventNotFoundException;
 import org.klarag.myevent.mapper.EventMapper;
+import org.klarag.myevent.mapper.ParticipantMapper;
 import org.klarag.myevent.repository.EventRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,5 +62,15 @@ public class EventService {
     //capacity checker
     public Long getEventCapacity(Long id) {
         return getEventById(id).getCapacity();
+    }
+
+    public List<Participant> getParticipantsForEvent(Long eventId) {
+        EventEntity eventEntity = eventRepository.findById(eventId)
+                .orElseThrow(() -> new EventNotFoundException("Nie znaleziono wydarzenia."));
+
+        // Pull participants from registrations
+        return eventEntity.getRegistrations().stream()
+                .map(reg -> ParticipantMapper.toParticipantDto(reg.getParticipant()))
+                .collect(Collectors.toList());
     }
 }

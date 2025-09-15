@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Register Participant</title>
+</head>
+<body>
+<h1>Register Participant</h1>
+<a th:href="@{/events}">Back to Events</a>
+
+<form th:action="@{/api/participants}" th:object="${participant}" method="post">
+    <label>Name: <input type="text" th:field="*{name}" /></label><br/>
+    <label>Email: <input type="email" th:field="*{email}" /></label><br/>
+    <button type="submit">Register</button>
+</form>
+</body>
+</html>

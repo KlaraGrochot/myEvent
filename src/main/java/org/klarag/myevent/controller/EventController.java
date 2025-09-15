@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.klarag.myevent.dto.Event;
+import org.klarag.myevent.dto.Participant;
 import org.klarag.myevent.service.EventService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -74,5 +75,15 @@ public class EventController {
     public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
         eventService.deleteEvent(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Get all participants for an event",
+            description = "Returns a list of all participants registered for the specified event")
+    @ApiResponse(responseCode = "200", description = "Successfully retrieved participants")
+    @ApiResponse(responseCode = "404", description = "Event not found")
+    @GetMapping("/{id}/participants")
+    public ResponseEntity<List<Participant>> getParticipants(@PathVariable Long id) {
+        List<Participant> participants = eventService.getParticipantsForEvent(id);
+        return ResponseEntity.ok(participants);
     }
 }
