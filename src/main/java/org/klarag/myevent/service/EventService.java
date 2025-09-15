@@ -2,6 +2,7 @@ package org.klarag.myevent.service;
 
 import org.klarag.myevent.dto.Event;
 import org.klarag.myevent.entity.EventEntity;
+import org.klarag.myevent.exception.EventNotFoundException;
 import org.klarag.myevent.mapper.EventMapper;
 import org.klarag.myevent.repository.EventRepository;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class EventService {
     //CRUD
     public Event getEventById(Long id) {
         EventEntity eventEntity = eventRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event with id " + id + " not found!"));
+                .orElseThrow(() -> new EventNotFoundException("Nie znaleziono wydarzenia."));
         return EventMapper.toEventDto(eventEntity);
     }
 
@@ -41,7 +42,7 @@ public class EventService {
 
     public Event updateEvent(Long id, Event updatedEvent) {
         EventEntity eventEntity = eventRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event with id " + id + " not found!"));
+                .orElseThrow(() -> new EventNotFoundException("Nie znaleziono wydarzenia."));
         eventEntity.setName(updatedEvent.getName());
         eventEntity.setDescription(updatedEvent.getDescription());
         eventEntity.setCapacity(updatedEvent.getCapacity());

@@ -4,6 +4,7 @@ import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.klarag.myevent.dto.Participant;
 import org.klarag.myevent.entity.ParticipantEntity;
+import org.klarag.myevent.exception.AlreadyRegisteredException;
 import org.klarag.myevent.mapper.ParticipantMapper;
 import org.klarag.myevent.repository.ParticipantRepository;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class ParticipantService {
     public Participant registerParticipant(Participant participant) {
         participantRepository.findByEmail(participant.getEmail())
                 .ifPresent( p -> {
-                    throw new EntityExistsException("Participant with email " + participant.getEmail() + " already exists");
+                    throw new AlreadyRegisteredException(participant.getEmail());
                         });
         ParticipantEntity participantEntity = ParticipantMapper.toEntity(participant);
         ParticipantEntity saved = participantRepository.save(participantEntity);

@@ -4,6 +4,8 @@ import jakarta.transaction.Transactional;
 import org.klarag.myevent.entity.EventEntity;
 import org.klarag.myevent.entity.ParticipantEntity;
 import org.klarag.myevent.entity.RegistrationEntity;
+import org.klarag.myevent.exception.AlreadyRegisteredException;
+import org.klarag.myevent.exception.RegistrationFullException;
 import org.klarag.myevent.repository.RegistrationRepository;
 import org.springframework.stereotype.Service;
 
@@ -22,12 +24,12 @@ public class RegistrationService {
     public RegistrationEntity registerForEvent(EventEntity event, ParticipantEntity participant) {
         boolean isRegistered = registrationRepository.existsByEventAndParticipant(event, participant);
         if (isRegistered) {
-            throw new RuntimeException("Participant already registered for this event!");
+            throw new AlreadyRegisteredException(participant.getEmail());
         }
 
         long currentRegistrations = registrationRepository.countByEvent(event);
         if (currentRegistrations >= event.getCapacity()) {
-            throw new IllegalArgumentException("Event is full. No available spots.");
+            throw new RegistrationFullException(event.getName());
         }
 
         RegistrationEntity registration = new RegistrationEntity();
